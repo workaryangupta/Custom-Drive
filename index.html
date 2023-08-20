@@ -1,0 +1,100 @@
+<html lang="en">
+
+<head>
+    <title> Custom Drive </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="style.css"> 
+</head>
+
+<body>
+    <div id="header">
+        <button id="addFolder"> Add Folder </button>
+        <button id="addTextFile"> Add Text File </button>
+        
+    </div>
+
+    <div id="breadcrumb">
+        <a purpose = "path" rid = "-1"> Home </a>
+    </div>
+
+    <div id="container">
+    </div>
+
+    <div id="app">
+        <div id = "app-title-bar"> 
+            <div id="app-title">  Title will come here  </div>
+            <div id="win-actions">
+                <!--                            -->
+                <span class="material-icons">   minimize    </span>
+                <span class="material-icons">    fullscreen    </span>
+                <span id="app-close" class="material-icons">    close    </span>
+                <!--                           -->
+                
+            </div>
+        </div>
+        <div id = "app-menu-bar"> </div>
+        <div id = "app-body"> </div>
+    </div>
+
+    <template id="templates">
+    <!-- template for folder -->
+        <div class="folder" rid="" pid="">
+            <span action="rename"> Rename </span>
+            <span action="delete"> Delete </span>
+            <span action="view"> View </span>
+            <div purpose="name">    </div>
+        </div>
+        <a purpose = "path" rid = "-1"> </a>
+
+    <!-- template for text file -->
+        <div class="text-file" rid="" pid="">
+            <span action="rename"> Rename </span>
+            <span action="delete"> Delete </span>
+            <span action="view"> View </span>
+            <div purpose="name">    </div>
+        </div>
+        <a purpose = "path" rid = "-1"> </a>
+
+    <!-- template for notepad -->
+        <div purpose="notepad-menu" class="notepad-menu">
+
+            <span pressed="false" action="save" class="material-icons">   save    </span>
+            <span pressed="false" action="bold" class="material-icons">   format_bold    </span>
+            <span pressed="false" action="italic" class="material-icons">   format_italic    </span>
+            <span pressed="false" action="underline" class="material-icons">   format_underline    </span>
+            <input type="color" action="bg-color">
+            <input type="color" action="fg-color">
+            <select action="font-family"> 
+                <option value="monospace"> Monospace </option>
+                <option value="serif"> Serif </option>
+                <option value="sans-serif"> Sans-Serif </option>
+                <option value="cursive"> Cursive </option>
+                <option value="fantasy"> Fantasy </option> 
+            </select>
+            <select action="font-size"> 
+                <option value="14"> 14 </option>
+                <option value="16"> 16 </option>
+                <option value="18"> 18 </option>
+                <option value="20"> 20 </option>
+                <option value="22"> 22 </option>
+                <option value="24"> 24 </option>
+                <option value="26"> 26 </option>
+                <option value="28"> 28 </option>
+            </select>
+            <span action="download" class="material-icons">   download    </span>
+            <input action="upload" type="file">
+            <a purpose="download" href="https://www.google.com"> Link </a>
+
+        </div>
+
+        <div purpose="notepad-body" class="notepad-body">
+            <textarea> Start writing from here !! </textarea>
+        </div>
+
+    
+    </template>
+
+    <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>
