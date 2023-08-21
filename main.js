@@ -1,6 +1,7 @@
 (function(){
     let btnAddFolder = document.querySelector("#addFolder");
     let btnAddTextFile = document.querySelector("#addTextFile");
+    let btnAddAlbum = document.querySelector("#addAlbum");
     let breadCrumb = document.querySelector("#breadcrumb");
     let aRootPath = breadCrumb.querySelector("a[purpose='path']");
 
@@ -20,6 +21,7 @@
 
     btnAddFolder.addEventListener("click", addFolder);
     btnAddTextFile.addEventListener("click", addTextFile);
+    btnAddAlbum.addEventListener("click", addAlbum);
     aRootPath.addEventListener("click", viewFolderFromBreadcrumb);
     appClose.addEventListener("click", closeApp);
 
@@ -30,7 +32,6 @@
         divAppBody.innerHTML = "";
     }
 
-    // validation - non blank name , no duplicate names
     function addFolder() {
         let rname = prompt("Enter New Folder Name ");
         if (rname != null) {
@@ -150,6 +151,63 @@
         container.appendChild(divTextFile);
     }
 
+    function addAlbum() {
+        let rname = prompt("Enter New Album's Name ");
+        if (rname != null) {
+            rname = rname.trim(); 
+        }
+
+        if (!rname) {   // empty name validation
+            alert("Name can not be empty ");
+            return;
+        }
+
+        // unique name validation
+        let alreadyExist = resources.some(r => r.rname == rname && r.pid == cfid);
+        if (alreadyExist) {     
+            alert("File named {" + rname + "} already exists.Please enter a unique name!");
+            return;
+        }
+
+        rid++;
+        let pid = cfid;
+        // add to html
+        addAlbumToHTML(rname, rid, cfid);
+
+        // add to ram
+        resources.push({
+            id : rid,
+            rname : rname,
+            rtype : "album", 
+            pid : cfid,
+            
+            // yaha kuch parameters ayege
+        })
+
+        // storage
+        saveToStorage();
+    }
+
+    function addAlbumToHTML(rname, rid, pid) {
+        let divAlbumTemplate = templates.content.querySelector(".album");
+        let divAlbum = document.importNode(divAlbumTemplate, true);
+
+        let divName = divAlbum.querySelector("[purpose='name']");
+        let spanDelete = divAlbum.querySelector("[action='delete']");
+        let spanRename = divAlbum.querySelector("[action='rename']");
+        let spanView = divAlbum.querySelector("[action='view']");
+        
+        divName.innerHTML = rname;
+        spanDelete.addEventListener("click", deleteAlbum);
+        spanRename.addEventListener("click", renameAlbum);
+        spanView.addEventListener("click", viewAlbum);
+
+        divAlbum.setAttribute("rid", rid);
+        divAlbum.setAttribute("pid", pid);
+
+        container.appendChild(divAlbum);
+    }
+
     function deleteFolder() { 
         // delete all folders inside also
         let spanDelete = this;
@@ -203,6 +261,31 @@
 
         // remove from html
         container.removeChild(divTextFile);
+
+        // ram
+        let ridx = resources.findIndex(r => r.id == fidTBD);
+        resources.splice(ridx, 1);
+
+        // storage
+        saveToStorage();
+    }
+
+    function deleteAlbum() {
+        let spanDelete = this;
+        let divAlbum = spanDelete.parentNode;
+        let divName = divAlbum.querySelector("[purpose='name']");
+
+        let fname = divName.innerHTML;
+        let fidTBD = parseInt(divAlbum.getAttribute("rid"));       // TBD = to be deleted
+
+
+        let sure = confirm("Are you sure you want to delete '" + fname + "' ?");
+        if (!sure) {
+            return;
+        }
+
+        // remove from html
+        container.removeChild(divAlbum);
 
         // ram
         let ridx = resources.findIndex(r => r.id == fidTBD);
@@ -292,6 +375,46 @@
         saveToStorage();
     }
 
+    function renameAlbum() {
+        let nrname = prompt("Enter New Album Name ");
+        if (nrname != null) {
+            nrname = nrname.trim(); 
+        }
+
+        // empty name validation
+        if (!nrname) {   
+            alert("Album's Name can not be empty! ");
+            return;
+        }
+        // old name validation
+        let spanRename = this;
+        let divAlbum = spanRename.parentNode;
+        let divName = divAlbum.querySelector("[purpose='name']");
+        let oldName = divName.innerHTML;
+
+        if (nrname == oldName) {
+            alert("Please enter a new name!");
+            return;
+        }
+        // unique name validation
+        let alreadyExist = resources.some(r => r.rname == nrname && r.pid == cfid);
+        if (alreadyExist) {     
+            alert("Album named {" + nrname + "} already exists.Please enter a unique name!");
+            return;
+        }
+        
+        // change html
+        divName.innerHTML = nrname;
+
+        // change ram
+        let ridToBeEdited = parseInt(divAlbum.getAttribute("rid"));
+        let resource = resources.find(r => r.id == ridToBeEdited);
+        resource.rname = nrname;
+
+        // change storage
+        saveToStorage();
+    }
+
     function viewFolder() {
         let spanView = this;
         let divFolder = this.parentNode;
@@ -361,8 +484,13 @@
         let selectFontFamily = divAppMenuBar.querySelector("[action='font-family']");
         let selectFontSize = divAppMenuBar.querySelector("[action='font-size']");
         let spanDownload = divAppMenuBar.querySelector("[action='download']");
+        let spanForUpload = divAppMenuBar.querySelector("[action='forUpload']");
         let inputUpload = divAppMenuBar.querySelector("[action='upload']");
         let textArea = divAppBody.querySelector("textarea");
+        
+        spanForUpload.addEventListener("click", function() {
+            inputUpload.click();
+        })
 
         spanSave.addEventListener("click", saveNotepad);
         spanBold.addEventListener("click", makeNotepadBold);
@@ -394,6 +522,10 @@
         selectFontFamily.dispatchEvent(new Event("change"));
         selectFontSize.dispatchEvent(new Event("change"));
  
+    }
+
+    function viewAlbum() {
+
     }
 
     function downloadNotepad() {
@@ -592,7 +724,9 @@
                 if (resources[i].rtype == "folder") {
                     addFolderHTML(resources[i].rname, resources[i].id, cfid);
                 } else if (resources[i].rtype == "text-file") {
-                    addTextFileToHTML(resources[i].rname, resources[i].id, cfid)
+                    addTextFileToHTML(resources[i].rname, resources[i].id, cfid);
+                } else if (resources[i].rtype == "album") {
+                    addAlbumToHTML(resources[i].rname, resources[i].id, cfid);
                 }
             }
             if (resources[i].id > rid) {

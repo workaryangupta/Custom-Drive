@@ -10,7 +10,7 @@
     <div id="header">
         <button id="addFolder"> Add Folder </button>
         <button id="addTextFile"> Add Text File </button>
-        
+        <button id="addAlbum"> Add Album </button>
     </div>
 
     <div id="breadcrumb">
@@ -53,7 +53,14 @@
             <span action="view"> View </span>
             <div purpose="name">    </div>
         </div>
-        <a purpose = "path" rid = "-1"> </a>
+
+    <!-- template for album -->
+    <div class="album" rid="" pid="">
+        <span action="rename"> Rename </span>
+        <span action="delete"> Delete </span>
+        <span action="view"> View </span>
+        <div purpose="name">    </div>
+    </div>
 
     <!-- template for notepad -->
         <div purpose="notepad-menu" class="notepad-menu">
@@ -81,7 +88,8 @@
                 <option value="26"> 26 </option>
                 <option value="28"> 28 </option>
             </select>
-            <span action="download" class="material-icons">   download    </span>
+            <span action="download" class="material-icons">download</span>
+            <span action="forUpload" class="material-icons">upload</span>
             <input action="upload" type="file">
             <a purpose="download" href="https://www.google.com"> Link </a>
 

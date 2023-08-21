@@ -1,5 +1,5 @@
 body {
-    background-color: #fcfff8;
+    background-color: #fcfff8;   
 }
 
 #header {
@@ -14,7 +14,7 @@ body {
     background-color:aquamarine;
     font-weight: 450;
     padding: 18px;
-    margin: 200px;
+    margin: 100px;
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
@@ -135,6 +135,42 @@ body {
 
 }
 
+.album {
+    border: 2px solid #000000;
+    background-color: #e7eaf6;                               
+    border-radius: 5px;
+    padding: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin: 20px;
+    margin-top: 10px;
+    margin-bottom: 7px;
+    height: 120px;
+    width: 200px;
+}
+
+.album span{
+    
+    margin: 3px;
+    padding: 3px;
+    margin-bottom: 6px;
+    margin-top: 1px;
+    cursor: pointer;
+}
+
+.album span:hover {
+    text-decoration:underline;
+}
+
+.album div[purpose='name'] {
+    padding: 20px;
+    margin: 5px;
+    margin-top: 20px;
+    background-color: #a2a8d3;                             
+    border-radius: 16px 32px;
+
+}
+
 #app {
     border: 2px solid black;
     margin: 10px;
@@ -216,6 +252,10 @@ body {
     border-radius: 5px 10px;
 }
 
+.notepad-menu input[action=upload] {
+    display: none;
+}
+
 .notepad-body {
     height: 100%;
     width: 100%;
@@ -237,6 +277,4 @@ a[purpose="download"] {
     background-color: white;
     border-radius: 50%;
 }
-
-
 
