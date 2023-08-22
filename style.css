@@ -75,6 +75,7 @@ body {
     margin-bottom: 7px;
     height: 120px;
     width: 200px;
+    /* box-shadow: 1px 1px 5px  black; */
 }
 
 .folder span{
@@ -193,7 +194,7 @@ body {
 
 #app-body {
     display: flex;
-    height: 330px;
+    height: 500px;
     background-color:#A6E3E9 ;
 }
 
@@ -276,5 +277,130 @@ a[purpose="download"] {
     color:rgb(80, 74, 74);
     background-color: white;
     border-radius: 50%;
+}
+
+
+.album-menu{
+    border-top: 1px solid black;
+    width: 100%;
+}
+
+.album-menu span{
+    border: 2px solid white;
+    border-radius: 3px;
+}
+
+.album-menu select {
+    height: 25px;
+    border-radius: 3px;
+}
+
+.album-menu input[type = "file"]{
+    height: 25px;
+
+}
+
+.album-menu *{
+    margin: 5px 10px;
+    vertical-align: bottom;
+    height: 25px;
+    cursor: pointer;
+}
+
+.album-menu span:hover{
+    transform:scale(1.1);
+    background-color: #e9fcfc;
+    border-radius: 4px;
+
+}
+
+.album-menu [pressed=true]{
+    transform:scale(1.1);
+    background-color: #e9fcfc;
+    border-radius: 4px;
+
+}
+
+.album-menu input[type="color"] {
+    width: 30px;
+    border-radius: 5px 10px;
+}
+
+.album-body {
+    height: 100%;
+    width: 100%;
+    padding: 8px;
+}
+
+
+
+
+
+
+.picture-list {
+    border: 1px solid black;
+    height: 20%;
+    margin-bottom: 8px;
+    display: flex;
+    padding-left: 5px;
+    
+}
+
+.picture-list img{
+    height: 80px;
+    width: 120px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    
+}
+
+.picture-list img:hover{
+    transform: scale(1.06);
+    border: 1px solid black;  
+}
+
+.picture-list img[pressed=true]{
+    transform: scale(1.05);
+    border: 1px solid white; 
+    box-shadow: 0px 0px 10px white; 
+}
+
+.picture-view {
+    border: 1px solid black;
+    height: 74%;
+    display: flex;
+}
+
+.picture-view *{
+    border: 1px solid red;
+}
+
+.picture-view .picture-main{
+    height: 100% ;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.picture-view .picture-main img {
+    height: 90%;
+    margin: 15px;
+    width: 70%;
+}
+
+.picture-view .move-left {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    height: max-content;
+
+}
+
+.picture-view .move-right {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    height: max-content;
 }
 

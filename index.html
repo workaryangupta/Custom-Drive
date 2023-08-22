@@ -55,12 +55,12 @@
         </div>
 
     <!-- template for album -->
-    <div class="album" rid="" pid="">
-        <span action="rename"> Rename </span>
-        <span action="delete"> Delete </span>
-        <span action="view"> View </span>
-        <div purpose="name">    </div>
-    </div>
+        <div class="album" rid="" pid="">
+            <span action="rename"> Rename </span>
+            <span action="delete"> Delete </span>
+            <span action="view"> View </span>
+            <div purpose="name">    </div>
+        </div>
 
     <!-- template for notepad -->
         <div purpose="notepad-menu" class="notepad-menu">
@@ -99,7 +99,41 @@
             <textarea> Start writing from here !! </textarea>
         </div>
 
-    
+    <!-- template for album menu and body -->
+    <div purpose="album-menu" class="album-menu">
+        <span action="save" class="material-icons">save</span>
+        <span action="download" class="material-icons">download</span>
+        <span action="upload" class="material-icons">upload</span>
+
+        <span action="add" class="material-icons">add</span>
+        <span action="delete" class="material-icons">delete</span>
+        <span action="left" class="material-icons">keyboard_double_arrow_left</span>
+        <span action="right" class="material-icons">keyboard_double_arrow_right</span>
+
+        <span action="play" class="material-icons">play_arrow</span>
+        <span action="pause" class="material-icons">pause</span>
+
+    </div>
+    <div purpose="album-body" class="album-body">
+        <div class="picture-list">                  
+            <!-- <img src="https://photographylife.com/wp-content/uploads/2020/03/Dan-Ballard-Landscapes-6.jpg">
+            <img src="https://photographylife.com/wp-content/uploads/2020/03/Dan-Ballard-Landscapes-3.jpg" > -->
+        </div>
+
+        <div class="picture-view">
+            <div class="move-left">
+                <span action="left" class="material-icons">keyboard_double_arrow_left</span>
+            </div>
+            <div class="picture-main">
+                <img src="" alt=" Please Select an image ">
+            </div>
+            <div class="move-right">
+                <span action="right" class="material-icons">keyboard_double_arrow_right</span>
+        
+            </div>
+        </div>
+    </div>
+
     </template>
 
     <script type="text/javascript" src="main.js"></script>

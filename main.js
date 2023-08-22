@@ -441,6 +441,8 @@
                     addFolderHTML(resources[i].rname, resources[i].id, cfid);
                 } else if (resources[i].rtype == "text-file") {
                     addTextFileToHTML(resources[i].rname, resources[i].id, cfid)
+                } else if (resources[i].rtype == "album") {
+                    addAlbumToHTML(resources[i].rname, resources[i].id, cfid)
                 }
             }
             if (resources[i].id > rid) {
@@ -525,7 +527,57 @@
     }
 
     function viewAlbum() {
+        let spanView = this;
+        let divAlbum = spanView.parentNode;
+        let divName = divAlbum.querySelector("[purpose='name']");
 
+        let fname = divName.innerHTML;
+        let fid = parseInt(divAlbum.getAttribute("rid"));
+
+        // template nikaal ke menu me append
+        let divAlbumMenuTemplate = templates.content.querySelector("[purpose='album-menu']");
+        let divAlbumMenu = document.importNode(divAlbumMenuTemplate, true);
+        divAppMenuBar.innerHTML = "";
+        divAppMenuBar.appendChild(divAlbumMenu);
+
+        // template nikaal ke body me append
+        let divAlbumBodyTemplate = templates.content.querySelector("[purpose='album-body']");
+        let divAlbumBody = document.importNode(divAlbumBodyTemplate, true);
+        divAppBody.innerHTML = "";
+        divAppBody.appendChild(divAlbumBody);
+
+        divAppTitle.innerHTML = fname;
+        divAppTitle.setAttribute("rid", fid);
+
+        // now photo album ka kaam neeche
+        let spanAdd = divAlbumMenu.querySelector("[action='add']");
+        spanAdd.addEventListener("click", addPictureToAlbum);
+    }
+
+    function addPictureToAlbum() {
+        let iurl = prompt("Enter image url ");
+        if (!iurl) {
+            return;
+        }
+        let img = document.createElement("img");
+        img.setAttribute("src", iurl);
+        img.addEventListener("click", showPicInMain);
+
+        let divPictureList = divAppBody.querySelector(".picture-list");
+        divPictureList.appendChild(img);
+    }
+
+    function showPicInMain() {
+        let divPictureMainImg = divAppBody.querySelector(".picture-main > img");
+        divPictureMainImg.setAttribute("src", this.getAttribute("src"));
+        
+        let divPictureList = divAppBody.querySelector(".picture-list");
+        let imgs = divPictureList.querySelectorAll("[pressed=true]");
+        for (let i = 0; i < imgs.length; i++) {
+            imgs[i].setAttribute("pressed", false);
+        }
+
+        this.setAttribute("pressed", true);
     }
 
     function downloadNotepad() {
@@ -698,6 +750,8 @@
                     addFolderHTML(resources[i].rname, resources[i].id, cfid);
                 } else if (resources[i].rtype == "text-file") {
                     addTextFileToHTML(resources[i].rname, resources[i].id, cfid)
+                } else if (resources[i].rtype == "album") {
+                    addAlbumToHTML(resources[i].rname, resources[i].id, cfid)
                 }
             }
             if (resources[i].id > rid) {
